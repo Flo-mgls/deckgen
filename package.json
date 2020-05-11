@@ -4,7 +4,7 @@
   "description": "Deck generator for Clash Royale",
   "main": "index.js",
   "scripts": {
-    "sass": "sass ./sass/main.scss:./style.css -w --style compressed",
+    "sass": "sass --watch ./sass/main.scss:./style.css --style compressed",
     "prefix": "postcss ./style.css --use autoprefixer -d ./style.css"
   },
   "repository": {

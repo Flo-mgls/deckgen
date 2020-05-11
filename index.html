@@ -6,34 +6,77 @@
 	<meta name="description" content="Deck generator for clash Royale">
 	<meta name="author" content="Florian Magalhaes">
 	<title>deckGen - Deck generator for clash Royale</title>
+	<!-- CSS perso -->
 	<link rel="stylesheet" href="./style.css">
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<script defer src="./index.js"></script>
 </head>
 
 <body>
 	<header>
-		<h1>deckGen</h1>
+		<h1 class="text-center py-4">deckGen</h1>
 	</header>
-	<man>
-		<button>Une carte</button>
-		<div class="card">
-			<img class="image"/>
-		</div>
-		<div class="card">
-			<img class="image"/>
-		</div>
-		<div class="card">
-			<img class="image"/>
-		</div>
-		<div class="card">
-			<img class="image"/>
-		</div>
-		<div class="card">
-			<img class="image"/>
-		</div>
-		<div class="card">
-			<img class="image"/>
-		</div>
-	</man>
+	<main class="container">
+		<section class="deck-builder">
+
+			<div class="row">
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+				<div class="col-3">
+					<img class="image img-fluid" src="./images/noCard.png" alt=""/>
+				</div>
+			</div>
+
+
+			<form>
+				<div class="row text-center">
+					<p class="col">Choose a mode</p>
+				</div>
+				<div class="row deck-builder__select-mode">
+					<div class="col-4 text-center">
+						<input type="radio" name="mode" value="modeYolo" id="modeYolo">
+						<label for="modeYolo">Yolo Deck</label>
+					</div>
+					<div class="col-4 text-center">
+						<input type="radio" name="mode" value="modeCustom" id="modeCustom">
+						<label for="modeCustom">Custom Deck</label>
+					</div>
+					<div class="col-4 text-center">
+						<input type="radio" name="mode" value="modeStructured" id="modeStructured">
+						<label for="modeStructured">Structured Deck</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<input class="img-fluid deck-builder__deck-it" name="deck-it" type="image" src="./images/deckItButton.png" alt="">	
+					</div>
+				</div>
+			</form>
+
+		</section>
+
+	</main>
 </body>
 </html>

@@ -1,4 +1,4 @@
-let cardsNumberInDeck = 6; // Nombre de cartes dans un deck
+let cardsNumberInDeck = 8; // Nombre de cartes dans un deck
 let allCards = []; // Array contenant toutes les cartes du jeu
 let currentDeck = []; // Array contenant les cartes du deck actuel
 let modeDeckSelection = 0; // Mode de sélection: 0 > yolo / 
@@ -63,7 +63,8 @@ function genDeckYolo(){
 }
 
 // Affichage des 8 cartes dans le DOM
-function displayDeck(){
+function displayDeck(e){
+	e.preventDefault();
 	currentDeck = []; // On réinitialise le deck displayed
 	for(card of allCards){
 		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
@@ -85,4 +86,4 @@ function displayDeck(){
 	}
 }
 
-document.querySelector("button").addEventListener("click", displayDeck);
+document.getElementsByName("deck-it")[0].addEventListener("click", displayDeck);
