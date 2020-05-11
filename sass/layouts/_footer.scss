@@ -1,4 +1,18 @@
 footer{
-	background-color: $header-color-bg;
-	box-shadow: 0 4px 8px; 
+	background-color: $main-color;
+	box-shadow: 0 -4px 8px;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	p{
+		margin: 0;
+		font-family: $heading-font;
+		font-weight: bold;
+	}
+	a{
+		color: black;
+		&:hover{
+			color: #3498db;
+		}
+	}
 }
