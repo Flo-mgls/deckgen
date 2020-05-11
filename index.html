@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="./style.css">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
 	<script defer src="./index.js"></script>
 </head>
 
@@ -18,10 +20,10 @@
 	<header>
 		<h1 class="text-center py-4">deckGen</h1>
 	</header>
-	<main class="container">
-		<section class="deck-builder">
+	<main class="container-fluid">
+		<section class="deck-builder row mx-1">
 
-			<div class="deck-builder__deck">
+			<div class="deck-builder__deck col-lg-8 my-5">
 				<div class="row">
 					<div class="col-3">
 						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
@@ -52,33 +54,36 @@
 				</div>
 			</div>
 
-			<form>
-				<div class="row text-center">
-					<p class="col">Choose a mode</p>
-				</div>
-				<div class="row deck-builder__select-mode">
-					<div class="col-4 text-center">
-						<input type="radio" name="mode" value="modeYolo" id="modeYolo">
-						<label for="modeYolo">Yolo Deck</label>
+			<div class="deck-builder__options col-lg-3 offset-lg-1 my-5 py-3">
+				<form>
+					<div class="row text-center">
+						<p class="col">Choose a mode to generate a deck</p>
 					</div>
-					<div class="col-4 text-center">
-						<input type="radio" name="mode" value="modeCustom" id="modeCustom">
-						<label for="modeCustom">Custom Deck</label>
+					<div class="row deck-builder__select-mode">
+						<div class="col-lg-6 col-4 text-center">
+							<input type="radio" name="mode" value="modeYolo" id="modeYolo">
+							<label for="modeYolo">Yolo</label>
+						</div>
+						<div class="col-lg-6 col-4 text-center">
+							<input type="radio" name="mode" value="modeStructured" id="modeStructured">
+							<label for="modeStructured">Structured</label>
+						</div>
+						<div class="col-lg-12 col-4 text-center">
+							<input type="radio" name="mode" value="modeCustom" id="modeCustom">
+							<label for="modeCustom">Custom</label>
+						</div>
 					</div>
-					<div class="col-4 text-center">
-						<input type="radio" name="mode" value="modeStructured" id="modeStructured">
-						<label for="modeStructured">Structured Deck</label>
+					<div class="row">
+						<div class="col text-center">
+							<input class="img-fluid deck-builder__deck-it" name="deck-it" type="image" src="./contents/images/deckItButton.png" alt="">	
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col text-center">
-						<input class="img-fluid deck-builder__deck-it" name="deck-it" type="image" src="./contents/images/deckItButton.png" alt="">	
-					</div>
-				</div>
-			</form>
+				</form>
+			</div>
 
 		</section>
-
 	</main>
+	<footer>
+	</footer>
 </body>
 </html>
