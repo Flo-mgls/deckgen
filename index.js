@@ -40,7 +40,7 @@ let princess = new Cards(62, "Princess", "Legendary", "Troop", 3, "images/prince
 // Donne un aléatoire selon le mode de sélection choisi
 function getRandom(mode){
 	switch(mode){
-		case 0:
+		case 0: // Mode yolo donc aléatoire sur toutes les cartes
 		return Math.floor(Math.random() * allCards.length);
 		break;
 
@@ -52,23 +52,23 @@ function getRandom(mode){
 // Mode de sélection 0 - choisi 8 cartes totalement aléatoire
 function genDeckYolo(){
 	while(currentDeck.length < cardsNumberInDeck){
-		randomCard = getRandom(modeDeckSelection);
+		randomCard = getRandom(modeDeckSelection); // On définit une carte aléatoire
 		if(allCards[randomCard].isUsed){
-			continue;
+			continue; // Si la carte a déjà été utilisé
 		}else{
-			allCards[randomCard].isUsed = true;
-			currentDeck.push(allCards[randomCard]);
+			allCards[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(allCards[randomCard]); // Et on la push dans l'array contenant le deck displayed
 		}
 	}
 }
 
 // Affichage des 8 cartes dans le DOM
 function displayDeck(){
-	currentDeck = [];
+	currentDeck = []; // On réinitialise le deck displayed
 	for(card of allCards){
-		card.isUsed = false;
+		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
 	}
-	switch(modeDeckSelection){
+	switch(modeDeckSelection){ // Selon le mode on appelle telle ou telle fonction
 		case 0:
 		genDeckYolo();
 		break;

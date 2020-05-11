@@ -1,0 +1,34 @@
+{
+  "name": "deckgen",
+  "version": "1.0.0",
+  "description": "Deck generator for Clash Royale",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass ./sass/main.scss:./style.css -w --style compressed",
+    "prefix": "postcss ./style.css --use autoprefixer -d ./style.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Flo-mgls/deckGen.git"
+  },
+  "keywords": [
+    "deckgen",
+    "deck",
+    "generator",
+    "clash",
+    "royale"
+  ],
+  "author": "Florian Magalhaes",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "bugs": {
+    "url": "https://github.com/Flo-mgls/deckGen/issues"
+  },
+  "homepage": "https://github.com/Flo-mgls/deckGen#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.7.6",
+    "postcss": "^7.0.29",
+    "postcss-cli": "^7.1.1",
+    "sass": "^1.26.5"
+  }
+}
