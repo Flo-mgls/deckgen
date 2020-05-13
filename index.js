@@ -77,6 +77,19 @@ function getAverageCost(){
 	return averageCost.toFixed(1); // On retourne le résultat avec 1 décimale
 }
 
+//Récupère le mode sélectionné
+function getMode(){
+	let modes = document.getElementsByName("mode"); //On récupère les boutons radio
+	for(mode of modes){
+		if(mode.checked){ // On check lequel est sélectionné
+			modeDeckSelection = mode.value; // On attribut sa valeur a modeDeckSelection
+		}else{
+			continue;
+		}
+	}
+	return parseFloat(modeDeckSelection); // On converti le string récupéré en number
+}
+
 // Mode de sélection 0 - choisi 8 cartes totalement aléatoire
 function genDeckYolo(){
 	while(currentDeck.length < cardsNumberInDeck){
@@ -89,22 +102,8 @@ function genDeckYolo(){
 		}
 	}
 }
-
-// Affichage des 8 cartes dans le DOM
-function displayDeck(e){
-	e.preventDefault();
-	currentDeck = []; // On réinitialise le deck displayed
-	for(card of allCards){
-		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
-	}
-	switch(modeDeckSelection){ // Selon le mode on appelle telle ou telle fonction
-		case 0:
-		genDeckYolo();
-		break;
-
-		default:
-		genDeckYolo();
-	}
+// S'occupe d'afficher tous les éléments à leur place
+function displayInDom(){
 	let cardNumber = 0;
 	let slots = document.getElementsByClassName("image");
 	for(slot of slots){
@@ -115,6 +114,29 @@ function displayDeck(e){
 	let averageCost = getAverageCost();
 	let elixir = document.getElementsByClassName("deck-builder__deck__elixir")[0];
 	elixir.getElementsByTagName("span")[0].textContent = averageCost;
+}
+
+// Affichage des 8 cartes dans le DOM
+function displayDeck(e){
+	e.preventDefault();
+	currentDeck = []; // On réinitialise le deck displayed
+	for(card of allCards){
+		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
+	}
+	switch(getMode()){ // Selon le mode on appelle telle ou telle fonction
+		case 0:
+		genDeckYolo();
+		displayInDom();
+		break;
+		case 1:
+		alert("mode soon available :)");
+		break;
+		case 2:
+		alert("mode soon available :)");
+		break;
+		default:
+		genDeckYolo();
+	}
 }
 
 document.getElementsByName("deck-it")[0].addEventListener("click", displayDeck);
