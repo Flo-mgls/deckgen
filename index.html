@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 	<meta name="description" content="Deck generator for clash Royale">
 	<meta name="author" content="Florian Magalhaes">
+	<link rel="shortcut icon" href="./contents/images/favicon.png">
 	<title>deckGen - Deck generator for clash Royale</title>
 	<meta name="robots" content="noindex">
 	<!-- CSS perso -->
@@ -15,6 +16,18 @@
 	<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
 	<!-- Font Awesome -->
 	<script src="https://kit.fontawesome.com/25774bd025.js" crossorigin="anonymous"></script>
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://florian-magalhaes.fr/deckGen">
+	<meta property="og:title" content="deckGen">
+	<meta property="og:description" content="Deck generator for clash Royale">
+	<meta property="og:image" content="contents/images/sharePic.png">
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://florian-magalhaes.fr/deckGen">
+	<meta property="twitter:title" content="deckGen">
+	<meta property="twitter:description" content="Deck generator for clash Royale">
+	<meta property="twitter:image" content="contents/images/sharePic.png">
 	<script defer src="./index.js"></script>
 </head>
 
@@ -22,10 +35,12 @@
 	<header>
 		<h1 class="text-center py-4">deckGen</h1>
 	</header>
-	<main class="container-fluid">
-		<section class="deck-builder row mx-1">
-
-			<div class="deck-builder__deck col-lg-8 my-5">
+	<main class="container-fluid container-lg">
+		<!-- partie création du deck -->
+		<section class="deck-builder row mx-lg-1 mt-5">
+			<h2 class="text-center px-1">Generate a Clash Royale deck by choosing between 3 modes !</h2>
+			<!-- partie deck -->
+			<div class="deck-builder__deck col-lg-8">
 				<div class="row">
 					<div class="col-3">
 						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
@@ -52,11 +67,18 @@
 					</div>
 					<div class="col-3">
 						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+					</div>
+				</div>
+				<div class="row deck-builder__deck__elixir text-center mt-1">
+					<div class="col text-center">
+						<p class="mb-0">Average Elixir cost: <span></span> 
+							<img src="./contents/images/elixir.png" alt=""/>
+						</p>
 					</div>
 				</div>
 			</div>
-
-			<div class="deck-builder__options col-lg-3 offset-lg-1 my-5 py-3">
+			<!-- Partie options de création -->
+			<div class="deck-builder__options col-lg-4 pl-lg-4 py-3">
 				<form>
 					<div class="row text-center">
 						<p class="col">Choose a mode to generate a deck</p>
@@ -75,8 +97,9 @@
 							<label for="modeCustom">Custom</label>
 						</div>
 					</div>
+					<!-- bouton générer -->
 					<div class="row">
-						<div class="col text-center">
+						<div class="col text-center mt-3">
 							<input class="img-fluid deck-builder__deck-it" name="deck-it" type="image" src="./contents/images/deckItButton.png" alt="">	
 						</div>
 					</div>
@@ -87,11 +110,11 @@
 	</main>
 	<footer class="container-fluid">
 		<div class="row">
-			<p class="col text-center mt-4">
-				developed by Florian Magalhaes
+			<p class="col text-center mt-3">
+				developed by <a href="mailto: f.magalhaes.dev@gmail.com">Florian Magalhaes</a>
 			</p>
 		</div>
-		<div class="row text-center mb-1">
+		<div class="row text-center my-1">
 			<div class="col">
 				<a href="https://twitter.com/Flomgls"><i class="fab fa-twitter fa-2x mx-2"></i></a>
 				<a href="https://github.com/Flo-mgls"><i class="fab fa-github-alt fa-2x mx-2"></i></a>

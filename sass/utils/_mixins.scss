@@ -1,0 +1,5 @@
+@mixin mobile-tablet(){
+	@media all and (max-width: 992px){
+		@content
+	}
+}

@@ -66,6 +66,16 @@ function getRandom(mode){
 		return Math.floor(Math.random() * allCards.length);
 	}
 }
+// Donne le coût moyen du deck en fonction du nombre de cartes
+function getAverageCost(){
+	let totalCost = 0;
+	let averageCost;
+	for(card of currentDeck){ // Pour chaque cartes on récupère son coût
+		totalCost += card.cost; // On l'ajoute
+	}
+	averageCost = totalCost / currentDeck.length; // On fait la moyenne
+	return averageCost.toFixed(1); // On retourne le résultat avec 1 décimale
+}
 
 // Mode de sélection 0 - choisi 8 cartes totalement aléatoire
 function genDeckYolo(){
@@ -102,6 +112,9 @@ function displayDeck(e){
 		slot.parentElement.setAttribute("id", `slot--${cardNumber}`);
 		cardNumber++;
 	}
+	let averageCost = getAverageCost();
+	let elixir = document.getElementsByClassName("deck-builder__deck__elixir")[0];
+	elixir.getElementsByTagName("span")[0].textContent = averageCost;
 }
 
 document.getElementsByName("deck-it")[0].addEventListener("click", displayDeck);

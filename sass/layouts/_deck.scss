@@ -1,8 +1,23 @@
 .deck-builder{
+	h2{
+		font-family: $second-font;
+		font-size: 1.5em;
+		margin: 0 auto 2em auto;
+	}
 	&__deck{
 		border-radius: 2em;
 		box-shadow: 2px 2px 9px;
 		padding: 1em;
 		background-color: $main-color;
+		@include mobile-tablet{
+			border-radius: 0;
+			box-shadow: none;
+		}
+		&__elixir{
+			font-family: $second-font;
+			img{
+				width: 1.5em;
+			}
+		}
 	}
 }
