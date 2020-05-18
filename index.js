@@ -3,6 +3,10 @@ let allCards = []; // Array contenant toutes les cartes du jeu
 let currentDeck = []; // Array contenant les cartes du deck actuel
 let modeDeckSelection = 0; // Mode de sélection: 0 > yolo / 1 > balanced / 2 > custom
 let imgCardsPath = "./contents/images/cards/"; // Path to cards
+let nbrSpells; // Nombre de spell pour un tirage
+let nbrBuildings; // Nombre de building pour un tirage
+let nbrWinConditions; // Nombre de winCondition pour un tirage
+
 
 // Conctructeur des cartes 
 function Cards(id, name, rarety, type, cost, image, arena, date, winCondition, isUsed) { 
@@ -123,6 +127,11 @@ let executioner = new Cards(96, "Executioner", "Epic", "Troop", 5, imgCardsPath 
 let royalGhost = new Cards(97, "Royal Ghost", "Legendary", "Troop", 3, imgCardsPath + "royalGhost.png", 12, 1801, false, false).addCard();
 let graveyard = new Cards(98, "Graveyard", "Legendary", "Spell", 5, imgCardsPath + "graveyard.png", 12, 1610, true, false).addCard();
 
+// Arrays spécifique
+let cardsSpell = allCards.filter(card => card.type == "Spell" && card.winCondition == false);
+let cardsBuilding = allCards.filter(card => card.type == "Building" && card.winCondition == false);
+let cardsWinCondition = allCards.filter(card => card.winCondition == true);
+let cardsSupport = allCards.filter(card => card.type == "Troop" && card.winCondition == false);
 
 // Donne un aléatoire selon l'array qui doit être traité
 function getRandom(array){
@@ -140,16 +149,19 @@ function getAverageCost(){
 }
 
 //Récupère le mode sélectionné
-function getMode(){
-	let modes = document.getElementsByName("mode"); //On récupère les boutons radio
-	for(mode of modes){
-		if(mode.checked){ // On check lequel est sélectionné
-			modeDeckSelection = mode.value; // On attribut sa valeur a modeDeckSelection
+let modes = document.getElementsByName("mode");
+for(let i = 0; i < modes.length; i++){
+	modes[i].addEventListener("change", function(){
+		if(modes[i].checked && modes[i].value == "2"){ // On check lequel est sélectionné
+			modeDeckSelection = modes[i].value; // On attribut sa valeur a modeDeckSelection
+			document.getElementById("customOptions").style.display = "block";
+		}else if(modes[i].checked){
+			modeDeckSelection = modes[i].value;
+			document.getElementById("customOptions").style.display = "none"
 		}else{
-			continue;
+			modeDeckSelection = 0;
 		}
-	}
-	return parseFloat(modeDeckSelection); // On converti le string récupéré en number
+	})
 }
 
 // Mode de sélection 0 - choisi 8 cartes totalement aléatoire
@@ -165,18 +177,9 @@ function genDeckYolo(){
 	}
 }
 
-function genDeckBalanced(){
-	let cardsSpell = allCards.filter(card => card.type == "Spell" && card.winCondition == false);
-	let cardsBuilding = allCards.filter(card => card.type == "Building" && card.winCondition == false);
-	let cardsWinCondition = allCards.filter(card => card.winCondition == true);
-	let cardsSupport = allCards.filter(card => card.type == "Troop" && card.winCondition == false);
+// Algo déterminant les probas pour spell
+function getRandomSpell(){
 	let randomSpell = Math.random();
-	let randomBuilding = Math.random();
-	let randomWinCondition = Math.random();
-	let nbrSpells;
-	let nbrBuildings;
-	let nbrWinConditions;
-	let randomCard;
 	switch(true){
 		case (randomSpell < 0.6):
 		nbrSpells = 2;
@@ -193,17 +196,11 @@ function genDeckBalanced(){
 		default:
 		nbrSpells = 2;
 	}
-	for(i = 0; i < nbrSpells; i++){
-		randomCard = getRandom(cardsSpell);
-		if(cardsSpell[randomCard].isUsed){
-			continue; // Si la carte a déjà été utilisé
-		}else{
-			cardsSpell[randomCard].isUsed = true; // Sinon on change son état
-			currentDeck.push(cardsSpell[randomCard]); // Et on la push dans l'array contenant le deck displayed
-		}
-	}
-
-	switch(true){
+}
+// Algo déterminant les probas pour building
+function getRandomBuilding(){
+		let randomBuilding = Math.random();
+			switch(true){
 		case (randomBuilding < 0.6):
 		nbrBuildings = 0;
 		break;
@@ -219,17 +216,12 @@ function genDeckBalanced(){
 		default:
 		nbrBuildings = 0;
 	}
-	for(i = 0; i < nbrBuildings; i++){
-		randomCard = getRandom(cardsBuilding);
-		if(cardsBuilding[randomCard].isUsed){
-			continue; // Si la carte a déjà été utilisé
-		}else{
-			cardsBuilding[randomCard].isUsed = true; // Sinon on change son état
-			currentDeck.push(cardsBuilding[randomCard]); // Et on la push dans l'array contenant le deck displayed
-		}
-	}
+}
 
-	switch(true){
+// Algo déterminant les probas pour winCondition
+function getRandomWinCondition(){
+		let randomWinCondition = Math.random();
+			switch(true){
 		case (randomWinCondition < 0.55):
 		nbrWinConditions = 1;
 		break;
@@ -239,13 +231,43 @@ function genDeckBalanced(){
 		case (randomWinCondition >= 0.9 && randomWinCondition < 0.95):
 		nbrWinConditions = 3;
 		break;
-		case (randomBuilding >= 0.95 && randomWinCondition < 1):
+		case (randomWinCondition >= 0.95 && randomWinCondition < 1):
 		nbrWinConditions = 0;
 		break;
 		default:
 		nbrWinConditions = 1;
 	}
-	for(i = 0; i < nbrWinConditions; i++){
+}
+
+// Mode de sélection 1 - choisi 8 cartes en fonction d'aléatoire prédéterminé avec getRandom...()
+function genDeckBalanced(){
+		let randomCard; 
+		getRandomSpell();
+		getRandomBuilding();
+		getRandomWinCondition();
+
+// On sélectionne dans l'array le nombre de cartes déterminé au dessus
+	for(let i = 0; i < nbrSpells; i++){
+		randomCard = getRandom(cardsSpell);
+		if(cardsSpell[randomCard].isUsed){
+			continue; // Si la carte a déjà été utilisé
+		}else{
+			cardsSpell[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsSpell[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+// On sélectionne dans l'array le nombre de cartes déterminé au dessus
+	for(let i = 0; i < nbrBuildings; i++){
+		randomCard = getRandom(cardsBuilding);
+		if(cardsBuilding[randomCard].isUsed){
+			continue; // Si la carte a déjà été utilisé
+		}else{
+			cardsBuilding[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsBuilding[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+// On sélectionne dans l'array le nombre de cartes déterminé au dessus
+	for(let i = 0; i < nbrWinConditions; i++){
 		randomCard = getRandom(cardsWinCondition);
 		if(cardsWinCondition[randomCard].isUsed){
 			continue; // Si la carte a déjà été utilisé
@@ -254,6 +276,7 @@ function genDeckBalanced(){
 			currentDeck.push(cardsWinCondition[randomCard]); // Et on la push dans l'array contenant le deck displayed
 		}
 	}
+// On complète currentDeck avec le nombre de cartes restantes pour arriver à 8
 	while(currentDeck.length < cardsNumberInDeck){
 		randomCard = getRandom(cardsSupport); // On définit une carte aléatoire
 		if(cardsSupport[randomCard].isUsed){
@@ -264,6 +287,26 @@ function genDeckBalanced(){
 		}
 	}
 }
+
+// Réinitialise l'état isUsed d'un Array
+function resetArray(array){
+	for(card of array){
+		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
+	}
+}
+
+// Réinitialise toutes les data nécessaires 
+function resetData(){
+		currentDeck = []; // On réinitialise le deck displayed
+		resetArray(allCards); // On réinitialise l'état isUsed 
+		resetArray(cardsSpell); // On réinitialise l'état isUsed
+		resetArray(cardsBuilding); // On réinitialise l'état isUsed
+		resetArray(cardsWinCondition); // On réinitialise l'état isUsed
+		resetArray(cardsSupport); // On réinitialise l'état isUsed
+		nbrSpells = 0; // On réinitialise le nombre de sort déterminé
+		nbrBuildings = 0; // On réinitialise le nombre de bat déterminé
+		nbrWinConditions = 0; // On réinitialise le nombre de win condition déterminé
+	}
 
 // S'occupe d'afficher tous les éléments à leur place
 function displayInDom(){
@@ -282,14 +325,11 @@ function displayInDom(){
 // Affichage des 8 cartes dans le DOM
 function displayDeck(e){
 	e.preventDefault();
-	currentDeck = []; // On réinitialise le deck displayed
-	for(card of allCards){
-		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
-	}
-	switch(getMode()){ // Selon le mode on appelle telle ou telle fonction
+	resetData(); // On s'assure de repartir de 0 à chaque génération
+	switch(parseFloat(modeDeckSelection)){ // Selon le mode on appelle telle ou telle fonction
 		case 0:
-		genDeckYolo();
-		displayInDom();
+		genDeckYolo(); // Génère le deck
+		displayInDom(); // L'affiche
 		break;
 		case 1:
 		genDeckBalanced();

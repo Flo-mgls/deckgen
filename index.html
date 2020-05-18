@@ -40,73 +40,128 @@
 		<section class="deck-builder row mx-lg-1 mt-5">
 			<h2 class="text-center px-1">Generate a Clash Royale deck by choosing between 3 modes !</h2>
 			<!-- partie deck -->
-			<div class="deck-builder__deck col-lg-8">
-				<div class="row">
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+			<div class="col-lg-8 p-0">
+				<div class="deck-builder__deck">
+					<div class="row">
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
 					</div>
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+					<div class="row">
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
+						<div class="col-3">
+							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
+						</div>
 					</div>
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
-					</div>
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
-					</div>
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
-					</div>
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
-					</div>
-					<div class="col-3">
-						<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>
-					</div>
-				</div>
-				<div class="row deck-builder__deck__elixir text-center mt-1">
-					<div class="col text-center">
-						<p class="mb-0">Average Elixir cost: <span></span> 
-							<img src="./contents/images/elixir.png" alt=""/>
-						</p>
+					<div class="row deck-builder__deck__elixir text-center mt-1">
+						<div class="col text-center">
+							<p class="mb-0">Average Elixir cost: <span></span> 
+								<img src="./contents/images/elixir.png" alt=""/>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
 			<!-- Partie options de création -->
 			<div class="deck-builder__options col-lg-4 pl-lg-4 py-3">
-				<form id="modeDeck">
-					<div class="row text-center">
-						<p class="col">Choose a mode to generate a deck</p>
-					</div>
-					<div class="row deck-builder__select-mode">
-						<div class="col-lg-6 col-4 text-center">
-							<input type="radio" name="mode" value="0" id="modeYolo">
-							<label for="modeYolo">Yolo</label>
-						</div>
-						<div class="col-lg-12 order-lg-last col-4 text-center">
-							<input type="radio" name="mode" value="2" id="modeCustom">
-							<label for="modeCustom">Custom</label>
-						</div>
-						<div class="col-lg-6 col-4 text-center">
-							<input type="radio" name="mode" value="1" id="modeBalanced">
-							<label for="modeBalanced">Balanced</label>
-						</div>
+				<form id="modeDeck" name="modeDeck">
+					<fieldset class="text-center">
+						<legend>Choose a mode to generate a deck</legend>
 
-					</div>
-					<!-- bouton générer -->
-					<div class="row">
-						<div class="col text-center mt-3">
-							<input class="img-fluid deck-builder__deck-it" name="deck-it" type="image" src="./contents/images/deckItButton.png" alt="">	
+						<div class="row deck-builder__select-mode">
+							<div class="col-lg-6 col-4 text-center">
+								<input type="radio" name="mode" value="0" id="modeYolo" checked>
+								<label for="modeYolo">Yolo</label>
+							</div>
+							<div class="col-lg-12 order-lg-last col-4 text-center">
+								<input type="radio" name="mode" value="2" id="modeCustom">
+								<label for="modeCustom">Custom</label>
+							</div>
+							<div class="col-lg-6 col-4 text-center">
+								<input type="radio" name="mode" value="1" id="modeBalanced">
+								<label for="modeBalanced">Balanced</label>
+							</div>
+
 						</div>
-					</div>
+						<!-- bouton générer -->
+						<div class="row">
+							<div class="col text-center mt-3">
+								<input class="img-fluid deck-builder__deck-it" name="deck-it" type="image" src="./contents/images/deckItButton.png" alt="">	
+							</div>
+						</div>
+					</fieldset>
 				</form>
 			</div>
 
+			<form class="container-fluid my-5">
+				<fieldset id="customOptions" class="text-center">
+					<div class="row">
+						<div class="col-4">
+							<fieldset>
+								<legend>Type</legend>
+								<input type="checkbox" name="rarety" value="common" id="raretyCommon" checked>
+								<label for="raretyCommon">Common</label>
+								<input type="checkbox" name="rarety" value="rare" id="raretyRare" checked>
+								<label for="raretyRare">Rare</label>
+								<input type="checkbox" name="rarety" value="epic" id="raretyEpic" checked>
+								<label for="raretyCommon">Epic</label>
+								<input type="checkbox" name="rarety" value="legendary" id="raretyLegendary" checked>
+								<label for="raretyLegendary">Legendary</label>
+							</fieldset>
+						</div>
+						<div class="col-4">
+							<fieldset>
+								<legend>Arena</legend>
+								<select name="arena" multiple size="6" class="text-center">
+									<option value="0" selected>Training Camp</option>
+									<option value="1" selected>Goblin Stadium</option>
+									<option value="2" selected>Bone Pit</option>
+									<option value="3" selected>Barbarian Bowl</option>
+									<option value="4" selected>P.E.K.K.A's Playhouse</option>
+									<option value="5" selected>Spell Valley</option>
+									<option value="6" selected>Builder's Workshop</option>
+									<option value="7" selected>Royal Arena</option>
+									<option value="8" selected>Frozen Peak</option>
+									<option value="9" selected>Jungle Arena</option>
+									<option value="10" selected>Hog Mountain</option>
+									<option value="11" selected>Electro Valley</option>
+									<option value="12" selected>Spooky Town</option>
+								</select>
+							</fieldset>
+						</div>
+						<div class="col-4">
+							<fieldset>
+								<legend>How many?</legend>
+								<input type="range" min="0" max="9" name="howMany" value="9" id="howManySpell">
+								<label for="howManySpell">Spells : <span></span></label>
+								<input type="range" min="0" max="9" name="howMany" value="9" id="howManyBuilding">
+								<label for="howManyBuilding">Buildings : <span></span></label>
+								<input type="range" min="0" max="9" name="howMany" value="9" id="howManyTroop">
+								<label for="howManyTroop">Troops : <span></span></label>
+								<input type="range" min="0" max="9" name="howMany" value="9" id="howManyWC">
+								<label for="howManyWC">Win Conditions : <span></span></label>
+							</fieldset>
+						</div>
+					</div>
+				</fieldset>
+			</form>
 		</section>
 	</main>
 	<footer class="container-fluid">

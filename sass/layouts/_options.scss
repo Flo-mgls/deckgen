@@ -3,3 +3,17 @@
 		font-family: $second-font;
 	}
 }
+#customOptions{
+	display: none;
+	font-family: $second-font;
+	input{
+		display: block;
+		margin-right: auto;
+		margin-left: auto;
+	}
+	select{
+		background-color: $second-color;
+		border: none;
+		border-radius: 1em;
+	}
+}
