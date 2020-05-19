@@ -1,11 +1,19 @@
 let cardsNumberInDeck = 8; // Nombre de cartes dans un deck
 let allCards = []; // Array contenant toutes les cartes du jeu
 let currentDeck = []; // Array contenant les cartes du deck actuel
+let customCards = [];
+let customComplete = [];
 let modeDeckSelection = 0; // Mode de sélection: 0 > yolo / 1 > balanced / 2 > custom
 let imgCardsPath = "./contents/images/cards/"; // Path to cards
 let nbrSpells; // Nombre de spell pour un tirage
 let nbrBuildings; // Nombre de building pour un tirage
 let nbrWinConditions; // Nombre de winCondition pour un tirage
+let nbrTroops;
+let commonActive = true;
+let rareActive = true;
+let epicActive = true;
+let legendaryActive = true;
+let customModeIsOk = true;
 
 
 // Conctructeur des cartes 
@@ -36,7 +44,7 @@ let fireball = new Cards(5, "Fireball", "Rare", "Spell", 4, imgCardsPath + "fire
 let miniPekka = new Cards(6, "Mini P.E.K.K.A.", "Rare", "Troop", 4, imgCardsPath + "miniPekka.png", 0, 1601, false, false).addCard();
 let musketeer = new Cards(7, "Musketeer", "Rare", "Troop", 4, imgCardsPath + "musketeer.png", 0, 1601, false, false).addCard();
 let giant = new Cards(8, "Giant", "Rare", "Troop", 5, imgCardsPath + "giant.png", 0, 1601, true, false).addCard();
-let wallBreakers = new Cards(9, "wall Breakers", "epic", "Troop", 2, imgCardsPath + "wallBreakers.png", 0, 1902, true, false).addCard();
+let wallBreakers = new Cards(9, "wall Breakers", "Epic", "Troop", 2, imgCardsPath + "wallBreakers.png", 0, 1902, true, false).addCard();
 let prince = new Cards(10, "Prince", "Epic", "Troop", 5, imgCardsPath + "prince.png", 0, 1601, false, false).addCard();
 let babyDragon = new Cards(11, "Baby Dragon", "Epic", "Troop", 4, imgCardsPath + "babyDragon.png", 0, 1601, false, false).addCard();
 let skeletonArmy = new Cards(12, "Skeleton Army", "Epic", "Troop", 3, imgCardsPath + "skeletonArmy.png", 0, 1601, false, false).addCard();
@@ -131,7 +139,11 @@ let graveyard = new Cards(98, "Graveyard", "Legendary", "Spell", 5, imgCardsPath
 let cardsSpell = allCards.filter(card => card.type == "Spell" && card.winCondition == false);
 let cardsBuilding = allCards.filter(card => card.type == "Building" && card.winCondition == false);
 let cardsWinCondition = allCards.filter(card => card.winCondition == true);
-let cardsSupport = allCards.filter(card => card.type == "Troop" && card.winCondition == false);
+let cardsTroop = allCards.filter(card => card.type == "Troop" && card.winCondition == false);
+let cardsCommon = allCards.filter(card => card.rarety == "Common");
+let cardsRare = allCards.filter(card => card.rarety == "Rare");
+let cardsEpic = allCards.filter(card => card.rarety == "Epic");
+let cardsLegendary = allCards.filter(card => card.rarety == "Legendary");
 
 // Donne un aléatoire selon l'array qui doit être traité
 function getRandom(array){
@@ -199,8 +211,8 @@ function getRandomSpell(){
 }
 // Algo déterminant les probas pour building
 function getRandomBuilding(){
-		let randomBuilding = Math.random();
-			switch(true){
+	let randomBuilding = Math.random();
+	switch(true){
 		case (randomBuilding < 0.6):
 		nbrBuildings = 0;
 		break;
@@ -220,8 +232,8 @@ function getRandomBuilding(){
 
 // Algo déterminant les probas pour winCondition
 function getRandomWinCondition(){
-		let randomWinCondition = Math.random();
-			switch(true){
+	let randomWinCondition = Math.random();
+	switch(true){
 		case (randomWinCondition < 0.55):
 		nbrWinConditions = 1;
 		break;
@@ -241,15 +253,16 @@ function getRandomWinCondition(){
 
 // Mode de sélection 1 - choisi 8 cartes en fonction d'aléatoire prédéterminé avec getRandom...()
 function genDeckBalanced(){
-		let randomCard; 
-		getRandomSpell();
-		getRandomBuilding();
-		getRandomWinCondition();
+	let randomCard; 
+	getRandomSpell();
+	getRandomBuilding();
+	getRandomWinCondition();
 
 // On sélectionne dans l'array le nombre de cartes déterminé au dessus
-	for(let i = 0; i < nbrSpells; i++){
-		randomCard = getRandom(cardsSpell);
-		if(cardsSpell[randomCard].isUsed){
+for(let i = 0; i < nbrSpells; i++){
+	randomCard = getRandom(cardsSpell);
+	if(cardsSpell[randomCard].isUsed){
+		i--;
 			continue; // Si la carte a déjà été utilisé
 		}else{
 			cardsSpell[randomCard].isUsed = true; // Sinon on change son état
@@ -257,9 +270,10 @@ function genDeckBalanced(){
 		}
 	}
 // On sélectionne dans l'array le nombre de cartes déterminé au dessus
-	for(let i = 0; i < nbrBuildings; i++){
-		randomCard = getRandom(cardsBuilding);
-		if(cardsBuilding[randomCard].isUsed){
+for(let i = 0; i < nbrBuildings; i++){
+	randomCard = getRandom(cardsBuilding);
+	if(cardsBuilding[randomCard].isUsed){
+		i--;
 			continue; // Si la carte a déjà été utilisé
 		}else{
 			cardsBuilding[randomCard].isUsed = true; // Sinon on change son état
@@ -267,9 +281,10 @@ function genDeckBalanced(){
 		}
 	}
 // On sélectionne dans l'array le nombre de cartes déterminé au dessus
-	for(let i = 0; i < nbrWinConditions; i++){
-		randomCard = getRandom(cardsWinCondition);
-		if(cardsWinCondition[randomCard].isUsed){
+for(let i = 0; i < nbrWinConditions; i++){
+	randomCard = getRandom(cardsWinCondition);
+	if(cardsWinCondition[randomCard].isUsed){
+		i--;
 			continue; // Si la carte a déjà été utilisé
 		}else{
 			cardsWinCondition[randomCard].isUsed = true; // Sinon on change son état
@@ -277,15 +292,133 @@ function genDeckBalanced(){
 		}
 	}
 // On complète currentDeck avec le nombre de cartes restantes pour arriver à 8
-	while(currentDeck.length < cardsNumberInDeck){
-		randomCard = getRandom(cardsSupport); // On définit une carte aléatoire
-		if(cardsSupport[randomCard].isUsed){
+while(currentDeck.length < cardsNumberInDeck){
+		randomCard = getRandom(cardsTroop); // On définit une carte aléatoire
+		if(cardsTroop[randomCard].isUsed){
 			continue; // Si la carte a déjà été utilisé
 		}else{
-			cardsSupport[randomCard].isUsed = true; // Sinon on change son état
-			currentDeck.push(cardsSupport[randomCard]); // Et on la push dans l'array contenant le deck displayed
+			cardsTroop[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsTroop[randomCard]); // Et on la push dans l'array contenant le deck displayed
 		}
 	}
+}
+
+// Mode de sélection 2 - choisi 8 cartes en fonction...
+function genDeckCustom(){
+	let randomCard; 
+	commonActive = document.getElementById("raretyCommon").checked;
+	rareActive = document.getElementById("raretyRare").checked;
+	epicActive = document.getElementById("raretyEpic").checked;
+	legendaryActive = document.getElementById("raretyLegendary").checked;
+	if(commonActive){customCards = customCards.concat(cardsCommon);}
+	if(rareActive){customCards = customCards.concat(cardsRare);}
+	if(epicActive){customCards = customCards.concat(cardsEpic);}
+	if(legendaryActive){customCards = customCards.concat(cardsLegendary);}
+
+	nbrSpells = parseFloat(document.getElementById("howManySpell").value);
+	nbrBuildings = parseFloat(document.getElementById("howManyBuilding").value);
+	nbrTroops = parseFloat(document.getElementById("howManyTroop").value);
+	nbrWinConditions = parseFloat(document.getElementById("howManyWC").value);
+
+	cardsSpell = customCards.filter(card => card.type == "Spell" && card.winCondition == false);
+	cardsBuilding = customCards.filter(card => card.type == "Building" && card.winCondition == false);
+	cardsWinCondition = customCards.filter(card => card.winCondition == true);
+	cardsTroop = customCards.filter(card => card.type == "Troop" && card.winCondition == false);
+
+	if(nbrSpells <= 8){
+		let nbrSpellsInCustom = customCards.filter(card => card.type == "Spell" && card.winCondition == false);
+		if(nbrSpells < nbrSpellsInCustom.length){
+			for(let i = 0; i < nbrSpells; i++){
+				randomCard = getRandom(cardsSpell);
+				if(cardsSpell[randomCard].isUsed){
+					i--;
+				continue; // Si la carte a déjà été utilisé
+			}else{
+			cardsSpell[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsSpell[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+}else{
+	customModeIsOk = false;
+}
+}else{
+	customComplete = customComplete.concat(cardsSpell);
+}
+
+if(nbrBuildings <= 8){
+	let nbrBuildingsInCustom = customCards.filter(card => card.type == "Building" && card.winCondition == false);
+	if(nbrBuildings < nbrBuildingsInCustom.length){
+		for(let i = 0; i < nbrBuildings; i++){
+			randomCard = getRandom(cardsBuilding);
+			if(cardsBuilding[randomCard].isUsed){
+				i--;
+			continue; // Si la carte a déjà été utilisé
+		}else{
+			cardsBuilding[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsBuilding[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+}else{
+	customModeIsOk = false;
+}
+}else{
+	customComplete = customComplete.concat(cardsBuilding);
+}
+
+if(nbrTroops <= 8){
+	let nbrTroopsInCustom = customCards.filter(card => card.type == "Troop" && card.winCondition == false);
+	if(nbrTroops < nbrTroopsInCustom.length){
+		for(let i = 0; i < nbrTroops; i++){
+			randomCard = getRandom(cardsTroop);
+			if(cardsTroop[randomCard].isUsed){
+				i--;
+			continue; // Si la carte a déjà été utilisé
+		}else{
+			cardsTroop[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsTroop[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+}else{
+	customModeIsOk = false;
+}
+}else{
+	customComplete = customComplete.concat(cardsTroop);
+}
+
+if(nbrWinConditions <= 8){
+	let nbrWCInCustom = customCards.filter(card => card.winCondition == true);
+	if(nbrBuildings < nbrBuildingsInCustom.length){
+		for(let i = 0; i < nbrWinConditions; i++){
+			randomCard = getRandom(cardsWinCondition);
+			if(cardsWinCondition[randomCard].isUsed){
+				i--;
+			continue; // Si la carte a déjà été utilisé
+		}else{
+			cardsWinCondition[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(cardsWinCondition[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+}else{
+	customModeIsOk = false;
+}
+}else{
+	customComplete = customComplete.concat(cardsWinCondition);
+}
+
+if(currentDeck.length != cardsNumberInDeck){
+	if(currentDeck.length < cardsNumberInDeck && (nbrSpells == 9 || nbrBuildings == 9 || nbrTroops == 9 || nbrWinConditions == 9)){
+		while(currentDeck.length < cardsNumberInDeck){
+		randomCard = getRandom(customComplete); // On définit une carte aléatoire
+		if(customComplete[randomCard].isUsed){
+			continue; // Si la carte a déjà été utilisé
+		}else{
+			customComplete[randomCard].isUsed = true; // Sinon on change son état
+			currentDeck.push(customComplete[randomCard]); // Et on la push dans l'array contenant le deck displayed
+		}
+	}
+}
+}
+
 }
 
 // Réinitialise l'état isUsed d'un Array
@@ -298,28 +431,37 @@ function resetArray(array){
 // Réinitialise toutes les data nécessaires 
 function resetData(){
 		currentDeck = []; // On réinitialise le deck displayed
+		customCards = []; // On réinitialise l'array contenant les choix fait par l'user
+		customComplete = [];
 		resetArray(allCards); // On réinitialise l'état isUsed 
 		resetArray(cardsSpell); // On réinitialise l'état isUsed
 		resetArray(cardsBuilding); // On réinitialise l'état isUsed
 		resetArray(cardsWinCondition); // On réinitialise l'état isUsed
-		resetArray(cardsSupport); // On réinitialise l'état isUsed
+		resetArray(cardsTroop); // On réinitialise l'état isUsed
+		resetArray(customCards); // On réinitialise l'état isUsed
 		nbrSpells = 0; // On réinitialise le nombre de sort déterminé
 		nbrBuildings = 0; // On réinitialise le nombre de bat déterminé
 		nbrWinConditions = 0; // On réinitialise le nombre de win condition déterminé
+		nbrTroops = 0;
+		customModeIsOk = true;
 	}
 
 // S'occupe d'afficher tous les éléments à leur place
 function displayInDom(){
-	let cardNumber = 0;
-	let slots = document.getElementsByClassName("image");
-	for(slot of slots){
-		slot.setAttribute("src", currentDeck[cardNumber].image);
-		slot.parentElement.setAttribute("id", `slot--${cardNumber}`);
-		cardNumber++;
+	if(currentDeck.length == cardsNumberInDeck && customModeIsOk){
+		let cardNumber = 0;
+		let slots = document.getElementsByClassName("image");
+		for(slot of slots){
+			slot.setAttribute("src", currentDeck[cardNumber].image);
+			slot.parentElement.setAttribute("id", `slot--${cardNumber}`);
+			cardNumber++;
+		}
+		let averageCost = getAverageCost();
+		let elixir = document.getElementsByClassName("deck-builder__deck__elixir")[0];
+		elixir.getElementsByTagName("span")[0].textContent = averageCost;
+	}else{
+		alert("Sorry, impossible to build a deck...You should maybe check your choices 😶")
 	}
-	let averageCost = getAverageCost();
-	let elixir = document.getElementsByClassName("deck-builder__deck__elixir")[0];
-	elixir.getElementsByTagName("span")[0].textContent = averageCost;
 }
 
 // Affichage des 8 cartes dans le DOM
@@ -336,11 +478,24 @@ function displayDeck(e){
 		displayInDom();
 		break;
 		case 2:
-		alert("Mode soon available 👌");
+		genDeckCustom();
+		displayInDom();
 		break;
 		default:
 		genDeckYolo();
+		displayInDom();
 	}
+}
+
+let howMany = document.getElementsByName("howMany");
+for(let i=0; i < howMany.length; i++){
+	howMany[i].addEventListener("change", function(){
+		if(howMany[i].value <= 8){
+			howMany[i].nextElementSibling.firstElementChild.textContent = howMany[i].value;
+		}else{
+			howMany[i].nextElementSibling.firstElementChild.textContent = "?";
+		}
+	})
 }
 
 document.getElementsByName("deck-it")[0].addEventListener("click", displayDeck);
