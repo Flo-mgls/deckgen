@@ -176,6 +176,17 @@ for(let i = 0; i < modes.length; i++){
 	})
 }
 
+let bannedOption = document.getElementsByName("banned")[0];
+for(let card in allCards){
+bannedOption.innerHTML += `<option value="${allCards[card].name}">${allCards[card].name}</option>`;
+}
+
+let requiredOption = document.getElementsByName("required")[0];
+for(let card in allCards){
+requiredOption.innerHTML += `<option value="${allCards[card].id}">${allCards[card].name}</option>`;
+}
+
+
 // Mode de sélection 0 - choisi 8 cartes totalement aléatoire
 function genDeckYolo(){
 	while(currentDeck.length < cardsNumberInDeck){
@@ -330,6 +341,21 @@ function genDeckCustom(){
 			customCards = customCards.filter(card => card.arena != arena);
 		}
 	}
+
+let bannedOptions = bannedOption.getElementsByTagName("option");
+for(let options of bannedOptions){
+	if(options.selected){
+		customCards = customCards.filter(card => card.name != options.value);
+	}
+}
+
+let requiredOptions = requiredOption.getElementsByTagName("option");
+for(let options of requiredOptions){
+	if(options.selected){
+		currentDeck.push(allCards[options.value - 1]);
+		customCards = customCards.filter(card => card.id != options.value);
+	}
+}
 
 	cardsSpell = customCards.filter(card => card.type == "Spell" && card.winCondition == false);
 	cardsBuilding = customCards.filter(card => card.type == "Building" && card.winCondition == false);

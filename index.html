@@ -115,7 +115,7 @@
 					<div class="row">
 						<div class="col-6 col-md-4">
 							<fieldset>
-								<legend>Type</legend>
+								<legend>Types</legend>
 								<input type="checkbox" name="rarety" value="common" id="raretyCommon" checked>
 								<label for="raretyCommon">Common</label>
 								<input type="checkbox" name="rarety" value="rare" id="raretyRare" checked>
@@ -141,8 +141,8 @@
 						</div>
 						<div class="col-12 col-md-4">
 							<fieldset>
-								<legend>Arena</legend>
-								<select name="arena" multiple size="6" class="text-center">
+								<legend>Arenas</legend>
+								<select name="arena" multiple size="4" class="text-center">
 									<option value="0" selected>Training Camp</option>
 									<option value="1" selected>Goblin Stadium</option>
 									<option value="2" selected>Bone Pit</option>
@@ -156,6 +156,16 @@
 									<option value="10" selected>Hog Mountain</option>
 									<option value="11" selected>Electro Valley</option>
 									<option value="12" selected>Spooky Town</option>
+								</select>
+							</fieldset>
+							<fieldset class="mt-2">
+								<legend>Banned cards</legend>
+								<select name="banned" multiple size="1" class="text-center">	
+								</select>
+							</fieldset>
+							<fieldset class="mt-2">
+								<legend>Required cards</legend>
+								<select name="required" multiple size="1" class="text-center">	
 								</select>
 							</fieldset>
 						</div>
