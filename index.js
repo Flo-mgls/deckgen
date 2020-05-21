@@ -153,7 +153,7 @@ function getRandom(array){
 function getAverageCost(){
 	let totalCost = 0;
 	let averageCost;
-	for(card of currentDeck){ // Pour chaque cartes on récupère son coût
+	for(let card of currentDeck){ // Pour chaque cartes on récupère son coût
 		totalCost += card.cost; // On l'ajoute
 	}
 	averageCost = totalCost / currentDeck.length; // On fait la moyenne
@@ -302,7 +302,7 @@ while(currentDeck.length < cardsNumberInDeck){
 		}
 	}
 }
-
+let arenas = {};
 // Mode de sélection 2 - choisi 8 cartes en fonction...
 function genDeckCustom(){
 	let randomCard; 
@@ -320,14 +320,24 @@ function genDeckCustom(){
 	nbrTroops = parseFloat(document.getElementById("howManyTroop").value);
 	nbrWinConditions = parseFloat(document.getElementById("howManyWC").value);
 
+	let arenaOption = document.getElementsByName("arena");
+	let arenaOptions = arenaOption[0].getElementsByTagName("option");
+	for(let i = 0; i < arenaOptions.length; i++){
+		arenas[i] = arenaOptions[i].selected;
+	}
+	for(let arena in arenas){
+		if(!arenas[arena]){
+			customCards = customCards.filter(card => card.arena != arena);
+		}
+	}
+
 	cardsSpell = customCards.filter(card => card.type == "Spell" && card.winCondition == false);
 	cardsBuilding = customCards.filter(card => card.type == "Building" && card.winCondition == false);
 	cardsWinCondition = customCards.filter(card => card.winCondition == true);
 	cardsTroop = customCards.filter(card => card.type == "Troop" && card.winCondition == false);
 
 	if(nbrSpells <= 8){
-		let nbrSpellsInCustom = customCards.filter(card => card.type == "Spell" && card.winCondition == false);
-		if(nbrSpells < nbrSpellsInCustom.length){
+		if(nbrSpells < cardsSpell.length){
 			for(let i = 0; i < nbrSpells; i++){
 				randomCard = getRandom(cardsSpell);
 				if(cardsSpell[randomCard].isUsed){
@@ -346,8 +356,7 @@ function genDeckCustom(){
 }
 
 if(nbrBuildings <= 8){
-	let nbrBuildingsInCustom = customCards.filter(card => card.type == "Building" && card.winCondition == false);
-	if(nbrBuildings < nbrBuildingsInCustom.length){
+	if(nbrBuildings < cardsBuilding.length){
 		for(let i = 0; i < nbrBuildings; i++){
 			randomCard = getRandom(cardsBuilding);
 			if(cardsBuilding[randomCard].isUsed){
@@ -366,8 +375,7 @@ if(nbrBuildings <= 8){
 }
 
 if(nbrTroops <= 8){
-	let nbrTroopsInCustom = customCards.filter(card => card.type == "Troop" && card.winCondition == false);
-	if(nbrTroops < nbrTroopsInCustom.length){
+	if(nbrTroops < cardsTroop.length){
 		for(let i = 0; i < nbrTroops; i++){
 			randomCard = getRandom(cardsTroop);
 			if(cardsTroop[randomCard].isUsed){
@@ -386,8 +394,7 @@ if(nbrTroops <= 8){
 }
 
 if(nbrWinConditions <= 8){
-	let nbrWCInCustom = customCards.filter(card => card.winCondition == true);
-	if(nbrBuildings < nbrBuildingsInCustom.length){
+	if(nbrWinConditions < cardsWinCondition.length){
 		for(let i = 0; i < nbrWinConditions; i++){
 			randomCard = getRandom(cardsWinCondition);
 			if(cardsWinCondition[randomCard].isUsed){
@@ -405,9 +412,10 @@ if(nbrWinConditions <= 8){
 	customComplete = customComplete.concat(cardsWinCondition);
 }
 
-if(currentDeck.length != cardsNumberInDeck){
-	if(currentDeck.length < cardsNumberInDeck && (nbrSpells == 9 || nbrBuildings == 9 || nbrTroops == 9 || nbrWinConditions == 9)){
-		while(currentDeck.length < cardsNumberInDeck){
+if(customComplete.length >= (cardsNumberInDeck - currentDeck.length)){
+	if(currentDeck.length != cardsNumberInDeck){
+		if(currentDeck.length < cardsNumberInDeck && (nbrSpells == 9 || nbrBuildings == 9 || nbrTroops == 9 || nbrWinConditions == 9)){
+			while(currentDeck.length < cardsNumberInDeck){
 		randomCard = getRandom(customComplete); // On définit une carte aléatoire
 		if(customComplete[randomCard].isUsed){
 			continue; // Si la carte a déjà été utilisé
@@ -418,14 +426,32 @@ if(currentDeck.length != cardsNumberInDeck){
 	}
 }
 }
+}else{customModeIsOk = false}
 
 }
 
 // Réinitialise l'état isUsed d'un Array
 function resetArray(array){
-	for(card of array){
+	for(let card of array){
 		card.isUsed = false; // On réinitialise l'état isUsed de chaque cartes 
 	}
+}
+
+function shuffle(arra1) {
+	var ctr = arra1.length, temp, index;
+
+// While there are elements in the array
+while (ctr > 0) {
+// Pick a random index
+index = Math.floor(Math.random() * ctr);
+// Decrease ctr by 1
+ctr--;
+// And swap the last element with it
+temp = arra1[ctr];
+arra1[ctr] = arra1[index];
+arra1[index] = temp;
+}
+return arra1;
 }
 
 // Réinitialise toutes les data nécessaires 
@@ -449,9 +475,10 @@ function resetData(){
 // S'occupe d'afficher tous les éléments à leur place
 function displayInDom(){
 	if(currentDeck.length == cardsNumberInDeck && customModeIsOk){
+		shuffle(currentDeck);
 		let cardNumber = 0;
 		let slots = document.getElementsByClassName("image");
-		for(slot of slots){
+		for(let slot of slots){
 			slot.setAttribute("src", currentDeck[cardNumber].image);
 			slot.parentElement.setAttribute("id", `slot--${cardNumber}`);
 			cardNumber++;
@@ -487,15 +514,24 @@ function displayDeck(e){
 	}
 }
 
-let howMany = document.getElementsByName("howMany");
-for(let i=0; i < howMany.length; i++){
-	howMany[i].addEventListener("change", function(){
-		if(howMany[i].value <= 8){
-			howMany[i].nextElementSibling.firstElementChild.textContent = howMany[i].value;
+let howManyOption = document.getElementsByName("howMany");
+for(let i=0; i < howManyOption.length; i++){
+	howManyOption[i].addEventListener("change", function(){
+		if(howManyOption[i].value <= 8){
+			howManyOption[i].nextElementSibling.firstElementChild.textContent = howManyOption[i].value;
 		}else{
-			howMany[i].nextElementSibling.firstElementChild.textContent = "?";
+			howManyOption[i].nextElementSibling.firstElementChild.textContent = "?";
 		}
 	})
 }
+document.addEventListener("DOMContentLoaded", function(){
+for(let i=0; i < howManyOption.length; i++){
+		if(howManyOption[i].value <= 8){
+			howManyOption[i].nextElementSibling.firstElementChild.textContent = howManyOption[i].value;
+		}else{
+			howManyOption[i].nextElementSibling.firstElementChild.textContent = "?";
+		}
+	
+}})
 
 document.getElementsByName("deck-it")[0].addEventListener("click", displayDeck);
