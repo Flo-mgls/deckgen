@@ -1,4 +1,4 @@
-<!doctype>
+<!doctype html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
@@ -8,10 +8,10 @@
 	<link rel="shortcut icon" href="./contents/images/favicon.png">
 	<title>deckGen - Deck generator for clash Royale</title>
 	<meta name="robots" content="noindex">
-	<!-- CSS perso -->
-	<link rel="stylesheet" href="./style.css">
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<!-- CSS perso -->
+	<link rel="stylesheet" href="./style.css">
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
 	<!-- Font Awesome -->
@@ -42,6 +42,17 @@
 			<!-- partie deck -->
 			<div class="col-lg-8 p-0">
 				<div class="deck-builder__deck">
+					<div class="deck-builder__copy-deck row text-center align-items-center mb-2">
+						<div class="col-4">
+							<a id="copy-warDeck" href="" class="btn btn-dark">WAR DECK</a>
+						</div>
+						<div class="col-4">
+							<p class="my-auto">Copy deck</p>
+						</div>
+						<div class="col-4">
+							<a id="copy-battleDeck" href="" class="btn btn-dark">BATTLE DECK</a>
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-3">
 							<img class="image img-fluid" src="./contents/images/noCard.png" alt=""/>

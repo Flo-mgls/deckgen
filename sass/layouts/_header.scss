@@ -6,5 +6,8 @@ header{
 		font-size: 6em;
 		color: $second-color;
 		text-shadow: -2px -2px 4px black;
+		@include mobile{
+			font-size: 5em;
+		}
 	}
 }

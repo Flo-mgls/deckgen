@@ -1,11 +1,7 @@
 .deck-builder{
-	&__options{
-		font-family: $second-font;
-	}
 }
 #customOptions{
 	display: none;
-	font-family: $second-font;
 	input{
 		display: block;
 		margin-right: auto;

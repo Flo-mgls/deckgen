@@ -1,4 +1,14 @@
 .deck-builder{
+	&__copy-deck{
+		display: none;
+		a{
+			background-color: $second-color;
+			color: inherit;
+			border: 0;
+			border-radius: 0.5em;
+			box-shadow: 2px 2px 9px;
+		}
+	}
 	&__select-mode{
 		label{
 			display: block;
