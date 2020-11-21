@@ -135,7 +135,9 @@ let mirror = new Cards(28000006, 95, "Mirror", "Epic", "Spell", 0, imgCardsPath 
 let executioner = new Cards(26000045, 96, "Executioner", "Epic", "Troop", 5, imgCardsPath + "executioner.png", 12, 1701, false, false).addCard();
 let royalGhost = new Cards(26000050, 97, "Royal Ghost", "Legendary", "Troop", 3, imgCardsPath + "royalGhost.png", 12, 1801, false, false).addCard();
 let graveyard = new Cards(28000010, 98, "Graveyard", "Legendary", "Spell", 5, imgCardsPath + "graveyard.png", 12, 1610, true, false).addCard();
-let skeletonDragons = new Cards(26000080, 99, "Skeleton Dragons", "Common", "Troop", 4, imgCardsPath +"skeletonDragons.png", 10, 2006, false, false).addCard();
+let skeletonDragons = new Cards(26000080, 99, "Skeleton Dragons", "Common", "Troop", 4, imgCardsPath +"skeletonDragons.png", 12, 2006, false, false).addCard();
+let electroGiant = new Cards(26000085, 100, "Electro Giant", "Epic", "Troop", 8, imgCardsPath +"electroGiant.png", 10, 2011, true, false).addCard();
+let electroSpirit = new Cards(26000084, 101, "Electro Spirit", "Common", "Troop", 1, imgCardsPath +"electroSpirit.png", 10, 2011, false, false).addCard();
 
 // Arrays spécifique
 let cardsSpell = allCards.filter(card => card.type == "Spell" && card.winCondition == false); // Que les spells
