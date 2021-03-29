@@ -69,7 +69,7 @@ let barbarianBarrel = new Cards(28000015, 29, "Barbarian Barrel", "Epic", "Spell
 let golem = new Cards(26000009, 30, "Golem", "Epic", "Troop", 8, imgCardsPath + "golem.png", 3, 1601, true, false).addCard();
 let zap = new Cards(28000008, 31, "Zap", "Common", "Spell", 2, imgCardsPath + "zap.png", 4, 1601, false, false).addCard();
 let minionHorde = new Cards(26000022, 32, "Minion Horde", "Common", "Troop", 5, imgCardsPath + "minionHorde.png", 4, 1601, false, false).addCard();
-let infernoTower = new Cards(26000037, 33, "Inferno Tower", "Rare", "Building", 5, imgCardsPath + "infernoTower.png", 4, 1601, false, false).addCard();
+let infernoTower = new Cards(27000003, 33, "Inferno Tower", "Rare", "Building", 5, imgCardsPath + "infernoTower.png", 4, 1601, false, false).addCard();
 let megaMinion = new Cards(26000039, 34, "Mega Minion", "Rare", "Troop", 3, imgCardsPath + "megaMinion.png", 4, 1609, false, false).addCard();
 let lightning = new Cards(28000007, 35, "Lightning", "Epic", "Spell", 6, imgCardsPath + "lightning.png", 4, 1601, false, false).addCard();
 let pekka = new Cards(26000004, 36, "P.E.K.K.A.", "Epic", "Troop", 7, imgCardsPath + "pekka.png", 4, 1601, false, false).addCard();
@@ -138,6 +138,7 @@ let graveyard = new Cards(28000010, 98, "Graveyard", "Legendary", "Spell", 5, im
 let skeletonDragons = new Cards(26000080, 99, "Skeleton Dragons", "Common", "Troop", 4, imgCardsPath +"skeletonDragons.png", 12, 2006, false, false).addCard();
 let electroGiant = new Cards(26000085, 100, "Electro Giant", "Epic", "Troop", 8, imgCardsPath +"electroGiant.png", 10, 2011, true, false).addCard();
 let electroSpirit = new Cards(26000084, 101, "Electro Spirit", "Common", "Troop", 1, imgCardsPath +"electroSpirit.png", 10, 2011, false, false).addCard();
+let motherWitch = new Cards(26000083, 102, "Mother Witch", "Legendary", "Troop", 4, imgCardsPath +"motherWitch.png", 9, 2012, false, false).addCard();
 
 // Arrays spécifique
 let cardsSpell = allCards.filter(card => card.type == "Spell" && card.winCondition == false); // Que les spells
