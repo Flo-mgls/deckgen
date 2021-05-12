@@ -27,7 +27,7 @@
   "homepage": "https://github.com/Flo-mgls/deckGen#readme",
   "devDependencies": {
     "autoprefixer": "^9.7.6",
-    "postcss": "^7.0.29",
+    "postcss": "^8.2.10",
     "postcss-cli": "^7.1.1",
     "sass": "^1.26.5"
   }
